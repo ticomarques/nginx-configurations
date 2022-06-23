@@ -26,10 +26,7 @@
  
    tail -f /var/log/nginx/*
 
-
-#Pasta onde ficam os logs
-
-/var/nginx/log/
+   /var/nginx/log/
 
 Os logs podem ser customizados para ter um output diferente na tela, basta configurar no nginx.conf (global), ou no virtual block (sites-available).
 
