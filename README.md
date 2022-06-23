@@ -152,6 +152,25 @@ mostra quantos operacoes I/O nos podemos operar simultâneas no cpu, fica atrela
 Se você tem apenas um CPU, e configura 4 workers, cada worker vai trabalhar com 25% de limite.
 
 
+# BUFFER
+
+Espaço de memoria volatil, que se for pequeno obriga o nginx a gravar os dados no disco que gera mais I/O, deixando tudo mais lento.
+
+client_body_buffer_size - usually form posts sent to the server
+
+client_header_buffer_size - é uma meta informacao do body
+
+client_max_body_size - é o corpo da postagem, que se for muito pesado dá erro 413 erro - rquest entity too large
+
+large_client_header_buffer - meta informacao muito pesada
+
+timeout - body ou header, error 408 nao foi capaz de processar o pedido no tempo definido
+
+keepalive_timeout - tempo que deixa a conexao aberta com o cliente.
+
+send_timeout - se o cliente nao responder no tempo definido no servidor, a conexao é fechada
+
+gzip_compression - comprime o dado a ser enviado para ficar mais leve e transmitir mais rapido, sendo que quanto maior a compressao, maior é o uso do cpu para comprimir no servidor, e descomprimir no cliente.
 
 
 
@@ -164,56 +183,9 @@ pode criar uma maquina para SSL encription e decription, e usar o proxy reverso 
 
 como fica um proxy reverso que joga para 2 maquinas
 
-http {
-  include /etc/nginx/mime.types;
-  access_log /var/log/nginx/access.log;
-  error /var/log/nginx/error.log;
-
-  server {
-    listen 80;
-    server_name 200.155.123.80;
-
-    location / {
-      proxy_pass http://10.10.15.2;
-    }  
-  }  
-
-  server {
-    listen 80;
-    server_name 200.155.123.80;
-
-    location /php {
-      proxy_pass http://155.200.55.65;
-    }
-  }  
-}
-
+  Conferir na pasta: /reverse-proxy/nginx-2-different-machines.conf
 
 
 Pode ser para mesma máquina, mudando apenas a porta de listen
 
-http {
-
-  include /etc/nginx/mime.types;
-  access_log /var/log/nginx/access.log;
-  error /var/log/nginx/error.log;
-
-  server {
-    listen 80;
-    server_name 200.155.123.80;
-
-    location / {
-      proxy_pass http://10.10.15.2;
-    }
-  }
-
-  server {
-    listen 8080;
-    server_name 200.155.123.80;
-
-    location / {
-      proxy_pass http://155.200.55.65;
-    }
-  }
-
-}
+  conferir na pasta: /reverse-proxy/nginx-same-machine.conf
