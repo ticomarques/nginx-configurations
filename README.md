@@ -15,6 +15,7 @@
 - Listar processos filtrados
 
   > ps -aux | grep nginx
+  
   > ps -ef | grep nginx
 
 
