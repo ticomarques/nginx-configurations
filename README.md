@@ -14,17 +14,17 @@
 
 - Listar processos filtrados
 
-   ps -aux | grep nginx
-   ps -ef | grep nginx
+  > ps -aux | grep nginx
+  > ps -ef | grep nginx
 
 
 - Achar recorrencias dentro do linux, como caminho do php-fpm.sock. 
 
-   find / -name "*fpm.sock"
+  > find / -name "*fpm.sock"
 
 - Monitorar os logs na tela, tempo real.
  
-   tail -f /var/log/nginx/*
+  > tail -f /var/log/nginx/*
 
    /var/nginx/log/
 
@@ -132,18 +132,17 @@ worker connection são conexões controladas pelos worker processes.
 
 cada worker process por default suporta 768 conexoes, sendo que o browser abre pelo menos 2 conexoes, entao esse numero cai pelo menos pela metade.
 
-   ulimit -n   -> Exibe numero de operações 
+   > ulimit -n   -> Exibe numero de operações 
 
 mostra quantos operacoes I/O nos podemos operar simultâneas no cpu, fica atrelado ao numero de conexoes que podemos abrir, enquanto os workers sao processos que podemos executar.
 
 é interessante deixar em auto, assim o hardware vai controlar o desempenho de forma natural.
 
-   ps -aux –forest | grep nginx
+   > ps -aux –forest | grep nginx
 
+   > lscpu -> checa dados do cpu
 
-   lscpu -> checa dados do cpu
-
-   nproc -> faz a mesma coisa
+   > nproc -> faz a mesma coisa
 
 
 Se você tem apenas um CPU, e configura 4 workers, cada worker vai trabalhar com 25% de limite.
