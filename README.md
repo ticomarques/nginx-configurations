@@ -35,13 +35,13 @@ Os logs podem ser customizados para ter um output diferente na tela, basta confi
 
 Depois te uma alteração no conf, primeiro rode o teste, depois um reload. Assim você garante que nao irá parar o servidor por erro no codigo.
 
-   nginx -t
+   > nginx -t
 
-   nginx -s reload
+   > nginx -s reload
 
-   systemctl reload nginx
+   > systemctl reload nginx
 
-   service nginx restart
+   > service nginx restart
 
 
 # Location 
