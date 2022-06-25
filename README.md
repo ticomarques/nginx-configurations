@@ -186,3 +186,23 @@ como fica um proxy reverso que joga para 2 maquinas
 Pode ser para mesma máquina, mudando apenas a porta de listen
 
   conferir na pasta: /reverse-proxy/nginx-same-machine.conf
+
+
+
+# X-Real-ip
+
+Quando um proxy reverso direciona para outras maquinas, normalmente as maquinas pegam o ip do proxy, e não do cliente que executou a requisição. É possível pegar o ip do cliente que solicitou a requisição, e se necessário pode armazenar ambos ips, do proxy e do cliente.
+
+Verificar se o modulo realip está ativo.
+
+> nginx -V
+
+
+Gerar log customizado para os ips reais.
+
+
+log_format specialLog '$http_x_real_ip - $remote_user [$time_local]  '
+                          '"$request" $status $body_bytes_sent '
+                          '"$http_referer" "$http_user_agent"  $remote_addr';
+ 
+access_log /var/log/nginx/access-special.log specialLog;
