@@ -193,6 +193,8 @@ Pode ser para mesma máquina, mudando apenas a porta de listen
 
 Quando um proxy reverso direciona para outras maquinas, normalmente as maquinas pegam o ip do proxy, e não do cliente que executou a requisição. É possível pegar o ip do cliente que solicitou a requisição, e se necessário pode armazenar ambos ips, do proxy e do cliente.
 
+* Verificar se o modulo está rodando, as instalações feitas de forma padrão já trazem o módulo ativado.
+
 Verificar se o modulo realip está ativo.
 
 > nginx -V
@@ -206,3 +208,35 @@ log_format specialLog '$http_x_real_ip - $remote_user [$time_local]  '
                           '"$http_referer" "$http_user_agent"  $remote_addr';
  
 access_log /var/log/nginx/access-special.log specialLog;
+
+
+
+# NGINX Cache
+
+Cliente cache é diferente de server cache, o servidor não tem controle de como o cliente vai lidar com cache, no maximo podemos passar algumas informações para orientar o client via headers.
+
+> Cache-Control Header - é o responsavel por ligar e desligar o caching no browser.
+
+Sem ele, o browser vai ficar resolicitando os arquivos sempre.
+
+> Cache-Control: public - deixa inclusive o proxy cachear os dados.
+
+> Cache-Control: bypasses o proxy e passa direto para o client.
+
+> Cache-Control: public, max-age= 3660000 - controla quanto tempo é valido o cache
+
+location = /bundle/main.js {
+	add_header Cache-Control public;
+	add_header Pragma public;
+	add_Header Vary Accept-Encoding;
+	return 200 'Public cache';
+	expires 2M;
+	
+}
+
+Vamos gerar uma regra para varios arquivos 
+
+location ˜* \.(css|js|jpg|png){
+	
+}
+
